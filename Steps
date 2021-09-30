@@ -1,0 +1,30 @@
+# Create Service Principal for AKS cluster
+
+az ad sp create-for-rbac --skip-assignment --name AKSDevopsguruServicePrincipal
+
+# Get Kubernetes Cluster credentials - Bash
+
+az aks get-credentials \
+  --resource-group AKSDevopsguru \
+  --name AKSDevopsguru
+
+# Get Kubernetes Cluster credentials - PowerShell
+
+az aks get-credentials --resource-group AKSDevopsguru --name AKSDevopsguru
+
+kubectl get nodes
+kubectl get pods --all-namespaces
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml
+kubectl get pods --all-namespaces
+kubectl proxy
+
+# Open Kubernetes Dashboard UI on browser :
+
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+kubectl get serviceaccounts --all-namespaces
+kubectl get ns
+kubectl describe serviceaccount kubernetes-dashboard -n kubernetes-dashboard
+kubectl describe secret kubernetes-dashboard-token-cjgkm -n kubernetes-dashboard
+kubectl apply -f .\RBAC-kubernetes-dashboard.yml
+ 
